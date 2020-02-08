@@ -7,10 +7,11 @@ public class Cuenta {
 
     // Lo que hará la clase por omisión si no recibe parámetros
     public Cuenta(){
-        this.saldo = 1500.00;
+        this.saldo = 5000.00;
+        this.nip = "0000";
     }
 
-    // Lo que hará la clase si recibe estos parámetros
+    // Lo que hará la clase si recibe todos los parámetros
     public Cuenta(Integer numero, String nip, double saldo, double interesAnual, String titular){
         this.numero = numero;
         this.nip = nip;
@@ -18,8 +19,6 @@ public class Cuenta {
         this.interesAnual = interesAnual;
         this.titular = titular;
     }
-
-
 
     public long getNumero(long numero) {
         return this.numero;
@@ -74,40 +73,55 @@ public class Cuenta {
     imprime en consola el saldo de la cuenta*/ 
     public double consultarSaldo() {
         System.out.println("El saldo de la cuenta es: " + this.saldo);
-        return this.saldo; // Si retorna, ¿por qué debería imprimir?
+        return this.saldo; 
     }
 
 
     /*La función cambiar nip debe verificar que la nueva cadena contenga 4
     caracteres numéricos y no repetidos entre sí.*/
     public boolean cambiarNip(String nuevoNip) {
-        Integer validaciones = 0;
-
-        if(nuevoNip.length() == 4){
-            validaciones++;
-        } else {
-            return false;
-        }
-
-        char caracterAnterior = nuevoNip.charAt(0);
-        for(Integer i = 1; i < nuevoNip.length(); i++){
-            if(nuevoNip.charAt(i) == caracterAnterior){
-                return false;
-            } else {
-                caracterAnterior = nuevoNip.charAt(i);
-            }
-        }
-        validaciones++;
-
-
-
-
-        if(validaciones == 3){
+        if(nipEsValido(nuevoNip)){
+            this.nip = nuevoNip;
             return true;
         } else {
             return false;
         }
     }
+
+    public boolean nipEsValido(String cadena) {
+        if(esNumerica(cadena) && cadena.length() == 4 && noTieneRepetidos(cadena)){
+            //System.out.println("El NIP " + cadena + " es válido");
+            return true;
+        } else {
+            System.out.println("El NIP " + cadena + " NO es válido, ingrese un NIP válido.");
+            return false;
+        }
+    }
+
+    public boolean esNumerica(String cadena) { 
+        Integer caracteresValidos = 0;
+        for(Integer i = 0; i < cadena.length(); i++){
+            if (Character.isDigit(cadena.charAt(i))){
+                caracteresValidos++;
+            }
+        }        
+        //return cadenaPrueba.chars().allMatch(Character::isDigit); // Investigar más
+        boolean esNumerica = (caracteresValidos == cadena.length() ) ? true : false;
+        return esNumerica;
+    }
+
+    public boolean noTieneRepetidos(String cadena) {
+        char caracterAnterior = cadena.charAt(0);
+        for(Integer i = 1; i < cadena.length(); i++){
+            if(cadena.charAt(i) == caracterAnterior){
+                return false;
+            } else {
+                caracterAnterior = cadena.charAt(i);
+            }
+        }            
+        return true;
+    }
+
     /* La
     función transferencia entre cuentas deberá afectar el saldo
     tanto de la cuenta origen como la cuenta destino*/
