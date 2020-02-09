@@ -1,4 +1,5 @@
 public class Cuenta {
+    
     private long numero;
     private String nip;
     private double interesAnual;
@@ -7,8 +8,10 @@ public class Cuenta {
 
     // Lo que hará la clase por omisión si no recibe parámetros
     public Cuenta(){
-        this.saldo = 5000.00;
-        this.nip = "0000";
+        this.saldo = 5000;
+        this.interesAnual = 0.25;
+        this.nip = "1234";
+        this.numero = 123456789;
     }
 
     // Lo que hará la clase si recibe todos los parámetros
@@ -88,51 +91,54 @@ public class Cuenta {
         }
     }
 
-    public boolean nipEsValido(String cadena) {
-        if(esNumerica(cadena) && cadena.length() == 4 && noTieneRepetidos(cadena)){
-            //System.out.println("El NIP " + cadena + " es válido");
+    // Función de ayuda para la función cambiarNip, ejecuta las funciones esNumerica,
+    // noTieneRepetidos y verifica que la longitud del nip sea de 4
+    public boolean nipEsValido(String nip) {
+        if(esNumerica(nip) && nip.length() == 4 && noTieneRepetidos(nip)){
+            //System.out.println("El NIP " + nip + " es válido");
             return true;
         } else {
-            System.out.println("El NIP " + cadena + " NO es válido, ingrese un NIP válido.");
+            System.out.println("El NIP " + nip + " NO es válido, ingrese un NIP válido.");
             return false;
         }
     }
-
-    public boolean esNumerica(String cadena) { 
+    // Verifica que todos los caracteres del NIP sean números
+    public boolean esNumerica(String nip) { 
         Integer caracteresValidos = 0;
-        for(Integer i = 0; i < cadena.length(); i++){
-            if (Character.isDigit(cadena.charAt(i))){
+        for(Integer i = 0; i < nip.length(); i++){
+            if (Character.isDigit(nip.charAt(i))){
                 caracteresValidos++;
             }
         }        
-        //return cadenaPrueba.chars().allMatch(Character::isDigit); // Investigar más
-        boolean esNumerica = (caracteresValidos == cadena.length() ) ? true : false;
+        //return nipPrueba.chars().allMatch(Character::isDigit); // Investigar más
+        boolean esNumerica = (caracteresValidos == nip.length() ) ? true : false;
         return esNumerica;
     }
 
-    public boolean noTieneRepetidos(String cadena) {
-        char caracterAnterior = cadena.charAt(0);
-        for(Integer i = 1; i < cadena.length(); i++){
-            if(cadena.charAt(i) == caracterAnterior){
+    // Verifica que no haya dos o más caracteres contiguos en el NIP
+    public boolean noTieneRepetidos(String nip) {
+        char caracterAnterior = nip.charAt(0);
+        for(Integer i = 1; i < nip.length(); i++){
+            if(nip.charAt(i) == caracterAnterior){
                 return false;
             } else {
-                caracterAnterior = cadena.charAt(i);
+                caracterAnterior = nip.charAt(i);
             }
         }            
         return true;
     }
 
-    /* La
-    función transferencia entre cuentas deberá afectar el saldo
+    /* La función transferencia entre cuentas deberá afectar el saldo
     tanto de la cuenta origen como la cuenta destino*/
-    // public boolean transferirCuentas(Cuenta CuentaDestino, double cantidad) {
-
-    //     if() {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+    public boolean transferirCuentas(Cuenta CuentaDestino, double cantidad) {
+        if(this.saldo > 0 && this.saldo - cantidad > 0){
+            this.saldo -= cantidad;
+            CuentaDestino.saldo += cantidad;
+            return true;
+        } else {
+            return false;
+        }       
+    }
 
     // Imprimir en consola datos del cliente.
     public void imprimirInformacion() {
@@ -140,7 +146,7 @@ public class Cuenta {
         System.out.println("El nip de la cuenta es: " + this.nip);
         System.out.println("El interés anual establecido para la cuenta es: " + this.interesAnual);
         System.out.println("El saldo de la cuenta es: " + this.saldo);
-        System.out.println("El nombre del titular de la cuenta es" + this.titular);
+        System.out.println("El nombre del titular de la cuenta es: " + this.titular);
     }
 
 }
