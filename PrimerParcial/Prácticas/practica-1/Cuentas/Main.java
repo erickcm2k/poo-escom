@@ -8,6 +8,7 @@ class Main {
             cuenta[i] = new Cuenta();
         }
 
+
         cuenta[0].cambiarNip("1111");
         cuenta[0].transferirCuentas(cuenta[1], 2000);
 
@@ -22,5 +23,6 @@ class Main {
             cuenta[i].imprimirInformacion();
             System.out.println();
         }*/
+        
     }
 }
