@@ -11,6 +11,6 @@ class Main {
 
         Login primerLogin = new Login(nombre, password);
         primerLogin.accion("123456");
-        System.out.println("Password es: " + primerLogin.getPassword());
+        
     }
 }

@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Login {
     private String username;
     private String password;
@@ -45,12 +46,38 @@ public class Login {
     }
     
     public boolean accion(String password) {
-        if(autenticaPassword(password) && revisaPassword(password) && validaPassword(password)){
-            setPassword(password);
-            return true;
-        } else {
-            return false;
-        }
+        
+        System.out.println("Ingresa una opción: ");
+        Scanner scanner = new Scanner(System.in);
+        char respuesta;
+        
+        do{
+            respuesta = scanner.next().toLowerCase().charAt(0);
+            switch(respuesta){
+                case 'a': {
+                    System.out.println(autenticaPassword(password)); 
+                    break;
+                }
+                case 'b': {
+                    System.out.println(revisaPassword(password));
+                }
+    
+                case 'c': {
+    
+                    if(validaPassword(password)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+    
+                }
+            }
+            System.out.println("Presione 's' si quiere repetir el menú. ");
+            respuesta = scanner.next().toLowerCase().charAt(0);
+        } while(respuesta != 's');
+
+        return false;
+
     }
     
     
