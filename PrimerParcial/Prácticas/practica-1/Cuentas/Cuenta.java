@@ -12,6 +12,7 @@ public class Cuenta {
         this.interesAnual = 0.25;
         this.nip = "1234";
         this.numero = 123456789;
+        this.titular = "n/a";
     }
 
     // Lo que hará la clase si recibe todos los parámetros
@@ -63,8 +64,10 @@ public class Cuenta {
         this.titular = titular;
     }   
 
+    /* Función que verificará si es posible retirar la
+    cantidad de dinero ingresada */
     public boolean retirarSaldo(double cantidad) {
-        if(this.saldo > 0 && this.saldo - cantidad > 0){
+        if(this.saldo - cantidad > 0){
             this.saldo -= cantidad;
             return true;
         } else {
@@ -110,12 +113,11 @@ public class Cuenta {
                 caracteresValidos++;
             }
         }        
-        //return nipPrueba.chars().allMatch(Character::isDigit); // Investigar más
         boolean esNumerica = (caracteresValidos == nip.length() ) ? true : false;
         return esNumerica;
     }
 
-    // Verifica que no haya dos o más caracteres contiguos en el NIP
+    /* Verifica que no haya dos o más caracteres contiguos en el NIP*/
     public boolean noTieneRepetidos(String nip) {
         char caracterAnterior = nip.charAt(0);
         for(Integer i = 1; i < nip.length(); i++){

@@ -8,7 +8,6 @@ class Main {
             cuenta[i] = new Cuenta();
         }
 
-
         cuenta[0].cambiarNip("1111");
         cuenta[0].transferirCuentas(cuenta[1], 2000);
 
@@ -18,11 +17,11 @@ class Main {
         System.out.println("Saldo de la primera cuenta: " + saldo1);
         System.out.println("Saldo de la segunda cuenta: " + saldo2);
 
-       /* System.out.println();
+       System.out.println();
         for(Integer i = 0; i < cuenta.length; i++){
             cuenta[i].imprimirInformacion();
             System.out.println();
-        }*/
+        }
         
     }
 }
