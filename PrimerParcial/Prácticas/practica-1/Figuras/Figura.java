@@ -9,12 +9,14 @@ public class Figura {
         this.perimetro = 0;
     }
 
+    /* Constructor que genera un círculo */
     public Figura (Punto p1, double radio) {
         this.nombre = "Circulo";
         this.area = Math.PI * radio;
         this.perimetro = Math.PI * 2.0 * radio;
     }
 
+    /* Constructor que genera un rectángulo */
     public Figura (Punto p1, Punto p2) {
         this.nombre = "Rectangulo";
         double alto = Math.abs(p1.getCoordX() - p2.getCoordX());         
@@ -23,6 +25,7 @@ public class Figura {
         this.perimetro = 2 * (alto + ancho);        
     }
 
+    /* Constructor que genera un triángulo */
     public Figura (Punto p1, Punto p2, Punto p3) {
         this.nombre = "Triangulo";
 
@@ -37,10 +40,6 @@ public class Figura {
 
         double areaTriangulo = Math.sqrt( p * ( (p - a) * (p - b) * (p - c) ) );
         double perimetroTriangulo = a + b + c;
-        // System.out.println("El semiperimetro es: " + p);
-        // System.out.println(a);
-        // System.out.println(b);
-        // System.out.println(c);
 
         this.area = areaTriangulo;
         this.perimetro = perimetroTriangulo;

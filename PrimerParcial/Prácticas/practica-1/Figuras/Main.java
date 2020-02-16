@@ -24,7 +24,5 @@ class Main {
         figuras[2] = new Figura(p1T, p2T, p3T);
         figuras[2].imprimirInformacion();
         System.out.println();
-
-
     }
 }
