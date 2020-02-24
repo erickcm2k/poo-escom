@@ -33,7 +33,7 @@ class Main {
         Movimiento movimiento1Cuenta1 = new Movimiento(cuenta1Fecha1, 'R', 1500, 5000);
         Movimiento movimiento2Cuenta1 = new Movimiento(cuenta1Fecha2, 'D', 450, 5000);
         Movimiento movimiento3Cuenta1 = new Movimiento(cuenta1Fecha3, 'R', 0, 5000);
-
+        // los movimientos deben ser creador por composicion
         cuenta1Cliente1.registrarMovimiento(movimiento1Cuenta1);
         cuenta1Cliente1.registrarMovimiento(movimiento2Cuenta1);
         cuenta1Cliente1.registrarMovimiento(movimiento3Cuenta1);
