@@ -1,24 +1,27 @@
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class Cuenta {
     
     private long numero;
     private double interesAnual;
     private double saldo;
-    private String titular;
-    private Movimiento[] movimientos;
+    private Cliente titular;
+    private ArrayList<Movimiento> movimientos = new ArrayList<>();
 
     // Lo que hará la clase por omisión si no recibe parámetros
     public Cuenta(){
         this.saldo = 5000;
         this.interesAnual = 0.25;
         this.numero = 123456789;
-        this.titular = "n/a";
     }
 
     // Lo que hará la clase si recibe todos los parámetros
-    public Cuenta(double saldo, double interesAnual){
-        this.saldo = saldo;
+    public Cuenta(long numero, double interesAnual, double saldo) {
+        this.numero = numero;
         this.interesAnual = interesAnual;
-    }
+        this.saldo = saldo;
+    } 
 
     public long getNumero(long numero) {
         return this.numero;
@@ -44,16 +47,26 @@ public class Cuenta {
         this.saldo = saldo;
     }
 
-    public String getCliente() {
+    public Cliente getCliente() {
         return this.titular;
     }
 
-    public void setCliente(String titular) {
+    public void setCliente(Cliente titular) {
         this.titular = titular;
     }   
 
-    /* Función que verificará si es posible retirar la
-    cantidad de dinero ingresada */
+
+    /*
+    Asociar cliente
+    */
+    public void asociarCliente(Cliente titular) {
+        this.titular = titular;
+    }
+    
+    /* 
+    Función que verificará si es posible retirar la
+    cantidad de dinero ingresada 
+    */
     public boolean retirarSaldo(double cantidad) {
         if(this.saldo - cantidad > 0){
             this.saldo -= cantidad;
@@ -63,21 +76,17 @@ public class Cuenta {
         }
     }
 
-
     // Depositar saldo
-
-    /*La función consultar saldo
-    imprime en consola el saldo de la cuenta*/ 
-    public double consultarSaldo() {
-        System.out.println("El saldo de la cuenta es: " + this.saldo);
-        return this.saldo; 
+    public void depositar(float cantidad) {
+        this.saldo += cantidad;
     }
 
-
-    /* La función transferencia entre cuentas deberá afectar el saldo
-    tanto de la cuenta origen como la cuenta destino*/
+    /*
+     La función transferencia entre cuentas deberá afectar el saldo
+    tanto de la cuenta origen como la cuenta destino
+    */
     public boolean transferencia(Cuenta CuentaDestino, double cantidad) {
-        if(this.saldo > 0 && this.saldo - cantidad > 0){
+        if(this.saldo - cantidad >= 0){
             this.saldo -= cantidad;
             CuentaDestino.saldo += cantidad;
             return true;
@@ -86,13 +95,43 @@ public class Cuenta {
         }       
     }
 
-    // Imprimir en consola datos del cliente.
-    public void imprimirInformacion() {
-        System.out.println("El numero de usuario es: " + this.numero);
-        System.out.println("El interés anual establecido para la cuenta es: " + this.interesAnual);
+
+    /*
+    La función consultar saldo
+    imprime en consola el saldo de la cuenta
+    */ 
+    public void consultarSaldo() {
         System.out.println("El saldo de la cuenta es: " + this.saldo);
-        System.out.println("El nombre del titular de la cuenta es: " + this.titular);
     }
 
-    // consultarMovimientos
+
+
+    /*
+        Imprimir en consola datos del cliente.
+    */
+    public void imprimirInformacion() {
+        System.out.println("Número de cuenta: " + this.numero);
+        System.out.println("Interés: " + this.interesAnual);
+        System.out.println("Saldo: " + this.saldo);
+        System.out.println("Titular de la cuenta es: " + this.titular.getNombre() + " " + this.titular.getApellidoPaterno() + " " + this.titular.getApellidoMaterno());
+    }
+
+    /*
+        Registrar movimientos
+    */
+    public void registrarMovimiento(Movimiento movimiento) {
+        movimientos.add(movimiento);
+    }
+
+    /* 
+        consultarMovimientos 
+    */
+    public void consultarMovimientos() {
+        System.out.println("Movimientos");
+        System.out.println();
+        for(int i = 0; i < movimientos.size(); i++){
+            movimientos.get(i).imprimeInformacion();
+            System.out.println();
+        }
+    }
 }

@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Movimiento {
@@ -13,8 +14,9 @@ public class Movimiento {
         this.saldoHistorico = saldoHistorico;
     }
     
-    public Calendar getFecha() {
-        return fecha;
+    public String getFecha() {
+        SimpleDateFormat fechaFormateada =  new SimpleDateFormat("dd/MMM/yyyy");
+        return fechaFormateada.format(this.fecha.getTime());
     }
 
     public void setFecha(Calendar fecha) {
@@ -46,10 +48,11 @@ public class Movimiento {
     }
 
     public void imprimeInformacion(){
-        System.out.println("La fecha del movimiento es: " + this.fecha);
+        SimpleDateFormat fechaFormateada =  new SimpleDateFormat("dd/MMM/yyyy");
+        /*System.out.println("La fecha del movimiento es: " + fechaFormateada.format(this.fecha.getTime()));
         System.out.println("El tipo de movimiento es: " + this.tipo);
         System.out.println("El importe es: " + this.importe);
-        System.out.println("El saldo historico es " + this.saldoHistorico);
+        System.out.println("El saldo historico es " + this.saldoHistorico);*/
+        System.out.println( fechaFormateada.format(this.fecha.getTime()) + "   " + this.tipo + "   " + this.importe + "   " + this.saldoHistorico);
     }
-
 }

@@ -46,7 +46,6 @@ public class Cliente {
     void imprimirInformacion() {
         System.out.println("El nombre del cliente es: " + this.nombre + this.apellidoPaterno + this.apellidoMaterno);
         System.out.println("Direccion del cliente: " + this.direccion);
-
     }
     
 }
