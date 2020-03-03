@@ -119,7 +119,12 @@ public class Cuenta {
     /*
         Registrar movimientos
     */
-    public void registrarMovimiento(Movimiento movimiento) {
+    public void registrarMovimiento(int año, int mes, int dia,char tipo, double importe, double saldoHistorico) {
+        Calendar fecha = Calendar.getInstance();
+        fecha.set(año, , dia);
+        
+        Movimiento movimiento = new Movimiento(fecha, tipo, importe, saldoHistorico);
+
         movimientos.add(movimiento);
     }
 
