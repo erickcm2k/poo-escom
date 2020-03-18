@@ -1,45 +1,83 @@
 import java.awt.Color;
-import javax.swing.JFrame;
+import java.awt.Image;
 import javax.swing.*;
 
 public class Interfaz extends JFrame {
     
     public Interfaz() {
-        this.setSize(600,600);
+        this.setSize(800,800);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Ventana");
+        this.setLocationRelativeTo(null); // situa la ventana en el centro de la pantalla
+        initComponents();
         //this.setLocation(660,100);
         //this.setBounds(200, 200, 600, 600); // x, y, ancho, alto
-        this.setLocationRelativeTo(null); // situa la ventana en el centro de la pantalla
-        //this.getContentPane().setBackground(Color.yellow);
-        initComponents();
+        // this.getContentPane().setBackground(Color.blue);
     }
     
     private void initComponents() {
         JPanel panel = new JPanel();
         this.getContentPane().add(panel);
         panel.setLayout(null); // Desactiva el diseño por defecto
+        
+        JLabel article = new JLabel("Artículo:");
+        JLabel specs = new JLabel("CARACTERÍSTICAS:");
+        JLabel id = new JLabel("id:");
+        JLabel brand = new JLabel("Marca:");
+        JLabel description = new JLabel("Descripción:");
+        JLabel price = new JLabel("Precio:");
+        JLabel warranty = new JLabel("Garantía:");
 
-        JLabel articleLabel = new JLabel("Artículo:");
-        JLabel specsLabel = new JLabel("CARACTERÍSTICAS:");
-        JLabel idLabel = new JLabel("id:");
-        JLabel brandLabel = new JLabel("Marca:");
-        JLabel descriptionLabel = new JLabel("Descripción:");
-        JLabel priceLabel = new JLabel("Precio:");
-        JLabel warrantyLabel = new JLabel("Garantía:");
+        JLabel articleLabel = new JLabel();
+        JLabel idLabel = new JLabel();
+        JLabel brandLabel = new JLabel();
+        JLabel descriptionLabel = new JLabel();
+        JLabel priceLabel = new JLabel();
+        JLabel warrantyLabel = new JLabel();
 
-        articleLabel.setBounds(20, 20, 110, 20);
-        specsLabel.setBounds(20, 45, 110, 20);
-        idLabel.setBounds(20, 70, 110, 20);
-        brandLabel.setBounds(20, 95, 110, 20);
-        descriptionLabel.setBounds(20, 125, 110, 20);
-        descriptionLabel.setForeground(Color.green);
+        ImageIcon shoppingCartImage = new ImageIcon(getClass().getResource("carritoCompras.png"));
+        JLabel imageLabel = new JLabel(new ImageIcon(shoppingCartImage.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+
+        article.setBounds(20, 20, 110, 20);
+        specs.setBounds(20, 45, 150, 20);
+        id.setBounds(20, 70, 110, 20);
+        brand.setBounds(20, 95, 110, 20);
+        description.setBounds(20, 125, 110, 20);
+        price.setBounds(20, 150, 110, 20);
+        warranty.setBounds(20, 175, 110, 20);
+
+        articleLabel.setBounds(220, 20, 110, 20);
+        idLabel.setBounds(220, 70, 110, 20);
+        brandLabel.setBounds(220, 95, 110, 20);
+        descriptionLabel.setBounds(220, 125, 110, 20);
+        priceLabel.setBounds(220, 150, 110, 20);
+        warrantyLabel.setBounds(220, 175, 110, 20);
+
+        imageLabel.setBounds(20, 220, 100, 100);
+        imageLabel.setOpaque(true);
+
+        panel.add(article);
+        panel.add(specs);
+        panel.add(id);
+        panel.add(brand);
+        panel.add(description);
+        panel.add(price);
+        panel.add(warranty);
+
         panel.add(articleLabel);
-        panel.add(specsLabel);
         panel.add(idLabel);
         panel.add(brandLabel);
         panel.add(descriptionLabel);
         panel.add(priceLabel);
         panel.add(warrantyLabel);
+
+        panel.add(imageLabel);
+
+        JButton sayHelloButton = new JButton("Say Hello");
+        sayHelloButton.setBounds(200, 300, 100, 20);
+
+        panel.add(sayHelloButton);
     }
+
+
 }
