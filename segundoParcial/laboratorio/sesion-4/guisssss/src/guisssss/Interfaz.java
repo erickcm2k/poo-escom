@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 //package Practica1;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-/**
- *
- * @author hruiz
- */
+
 public class Interfaz extends JFrame implements ActionListener{
     
     private JPanel tabs[];
@@ -72,21 +65,20 @@ public class Interfaz extends JFrame implements ActionListener{
         tabs[0].add(tfPass);
         tabs[0].add(signIn);   
         
-        signIn.addActionListener(new ActionListener() {
-            
-            public void actionPerformed(ActionEvent e) {
-                
-                if( tfUser.getText().equals(usuario) && tfPass.getText().equals(contrasena) ) {
+            signIn.addActionListener(new ActionListener() {
 
-                    JOptionPane.showMessageDialog(null, "Contraseña correcta");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+                public void actionPerformed(ActionEvent e) {
+
+                    if( tfUser.getText().equals(usuario) && tfPass.getText().equals(contrasena) ) {
+
+                        JOptionPane.showMessageDialog(null, "Contraseña correcta");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+                    }
                 }
-            }
-        }    
-        );         
-        
-        
+            }    
+            );         
+            
     }
 
  
