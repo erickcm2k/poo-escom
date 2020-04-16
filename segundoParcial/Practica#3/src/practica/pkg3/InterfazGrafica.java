@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package practica.pkg3;
 
 /**
@@ -16,12 +11,14 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class InterfazGrafica extends JFrame implements ActionListener{
     /* elementos graficos */
-    private JLabel etiquetasE[];
-    private JLabel etiquetasV[];
-    private JLabel etiquetasC[];
-    private JTextField campos[];
-    private JComboBox<Producto> comboElectro;
-    private JComboBox<Producto> comboViveres;
+    private JLabel electronicLabel[];
+    private JLabel newElectronicLabel[];
+    private JLabel vivereLabel[];
+    private JLabel cLabel[];
+    private JLabel campos[];
+    private JComboBox<Producto> electronicComboBox;
+    private JComboBox<String> newElectronicComboBox;
+    private JComboBox<Producto> viveresComboBox;
     private JComboBox comboCantidad;
     private JTextArea textAreaCompra;
     private JButton botonAgrega;
@@ -32,11 +29,11 @@ public class InterfazGrafica extends JFrame implements ActionListener{
     private JTabbedPane tabPanel;
     private Producto []productos;
     private float montoTotal;
-    Producto prodSelec;
+    Producto producto;
     
     public InterfazGrafica(Producto []productos) {
         montoTotal = 0.0f;
-        prodSelec = null;
+        producto = null;
         this.setTitle("Tienda Virtual");
         this.setSize(500,600);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -48,22 +45,25 @@ public class InterfazGrafica extends JFrame implements ActionListener{
     
     public void initComponents(){
         int i;
-        etiquetasE = new JLabel[6];
-        etiquetasV = new JLabel[6];
-        etiquetasC = new JLabel[2];
-        String []texto1 = {"Articulo:", "id", "marca:", "descripcion:", "precio:", "garantia:", "Cantidad:", "Total:"};
-        String []texto2 = {"Articulo:", "id", "marca:", "descripcion:", "precio:", "caducidad:"};
+        electronicLabel = new JLabel[6];
+        newElectronicLabel = new JLabel[6];
+        vivereLabel = new JLabel[6];
+        cLabel = new JLabel[2];
+        String texto1[] = {"Artículo:", "id", "Marca:", "Descripción:", "Precio:", "Garantia:", "Cantidad:", "Total:"};
+        String texto2[] = {"Artículo:", "id", "Marca:", "Descripción:", "Precio:", "Caducidad:"};
         
         for(i=0; i < 6; i++){
-            etiquetasE[i] = new JLabel(texto1[i]);
-            etiquetasV[i] = new JLabel(texto2[i]);
+            electronicLabel[i] = new JLabel(texto1[i]);
+            newElectronicLabel[i] = new JLabel(texto1[i]);
+            vivereLabel[i] = new JLabel(texto2[i]);
         }	
-        etiquetasC[0] = new JLabel(texto1[6]);
-        etiquetasC[1] = new JLabel(texto1[7]);
         
-        campos = new JTextField[11];
+        cLabel[0] = new JLabel(texto1[6]);
+        cLabel[1] = new JLabel(texto1[7]);
+        
+        campos = new JLabel[11];
         for(i=0; i < 11; i++){
-            campos[i] = new JTextField();
+            campos[i] = new JLabel();
             campos[i].setSize(200, 20);
         }
         campos[10].setText("             0.0");
@@ -74,19 +74,23 @@ public class InterfazGrafica extends JFrame implements ActionListener{
             tabs[i].setPreferredSize(new Dimension(450, 300));
         }
         
-        comboElectro = new JComboBox<Producto>();
-        comboElectro.addItem(null);
-        comboElectro.addItem(productos[0]);
-        comboElectro.addItem(productos[1]);
-        comboElectro.addActionListener(this);
+        electronicComboBox = new JComboBox<Producto>();
+        electronicComboBox.addItem(productos[0]);
+        electronicComboBox.addItem(productos[1]);
+        electronicComboBox.addActionListener(this);
+        
+        newElectronicComboBox = new JComboBox<String>();
+        newElectronicComboBox.addItem(productos[0].descripcion);
+        newElectronicComboBox.addItem(productos[1].descripcion);
+        newElectronicComboBox.addActionListener(this);
+        
+        viveresComboBox = new JComboBox<Producto>();
+        viveresComboBox.addItem(productos[2]);
+        viveresComboBox.addItem(productos[3]);
+        viveresComboBox.addActionListener(this);
         
         
-        comboViveres = new JComboBox<Producto>();
-        comboViveres.addItem(null);
-        comboViveres.addItem(productos[2]);
-        comboViveres.addItem(productos[3]);
-        comboViveres.addActionListener(this);
-        
+    
         
         comboCantidad = new JComboBox();
         for(i=1; i <=10; i++)
@@ -97,12 +101,12 @@ public class InterfazGrafica extends JFrame implements ActionListener{
         Icon icon = new ImageIcon("carrito2.png");
         
         
-        botonAgrega = new JButton("agregar al carrito");
+        botonAgrega = new JButton("Agregar al Carrito");
         botonAgrega.setSize(200, 200);
         
         //botonAgrega.setIcon(new ImageIcon(this.getClass().getResource("/iconos/carrito2.png")));
         botonAgrega.addActionListener(this);
-        botonTicket = new JButton("Genera ticket");
+        botonTicket = new JButton("Finalizar Compra");
         botonTicket.addActionListener(this);
         
         
@@ -116,55 +120,77 @@ public class InterfazGrafica extends JFrame implements ActionListener{
         
         tabPanel.addTab("Electrodomesticos", tabs[0]);
         
-        tabs[0].add(etiquetasE[0]);
-        tabs[0].add(comboElectro);
+        tabs[0].add(electronicLabel[0]);
+        tabs[0].add(electronicComboBox);
         
-        tabs[0].add(etiquetasE[1]);
+        tabs[0].add(electronicLabel[1]);
         tabs[0].add(campos[0]);
         
-        tabs[0].add(etiquetasE[2]);
+        tabs[0].add(electronicLabel[2]);
         tabs[0].add(campos[1]);
         
-        tabs[0].add(etiquetasE[3]);
+        tabs[0].add(electronicLabel[3]);
         tabs[0].add(campos[2]);
         
-        tabs[0].add(etiquetasE[4]);
+        tabs[0].add(electronicLabel[4]);
         tabs[0].add(campos[3]);
         
-        tabs[0].add(etiquetasE[5]);
+        tabs[0].add(electronicLabel[5]);
         tabs[0].add(campos[4]);
         
-        /*tab => Viveres*/
-        tabs[1].setLayout(new GridLayout(7, 2, 10, 20));
-        tabPanel.addTab("Viveres", tabs[1]);
         
-        tabs[1].add(etiquetasV[0]);
-        tabs[1].add(comboViveres);
+        tabs[1].setLayout(new GridLayout(8, 2, 10, 20));
+        tabPanel.addTab("NEW Electrodomesticos", tabs[1]);
         
-        tabs[1].add(etiquetasV[1]);
+        tabs[1].add(newElectronicLabel[0]);
+        tabs[1].add(newElectronicComboBox);
+        
+        tabs[1].add(newElectronicLabel[1]);
         tabs[1].add(campos[5]);
         
-        tabs[1].add(etiquetasV[2]);
+        tabs[1].add(newElectronicLabel[2]);
         tabs[1].add(campos[6]);
         
-        tabs[1].add(etiquetasV[3]);
+        tabs[1].add(newElectronicLabel[3]);
         tabs[1].add(campos[7]);
         
-        tabs[1].add(etiquetasV[4]);
+        tabs[1].add(newElectronicLabel[4]);
         tabs[1].add(campos[8]);
         
-        tabs[1].add(etiquetasV[5]);
+        tabs[1].add(newElectronicLabel[5]);
+        tabs[1].add(campos[9]);      
+        
+        /*tab => Viveres*/
+        /*tabs[1].setLayout(new GridLayout(7, 2, 10, 20));
+        tabPanel.addTab("Viveres", tabs[1]);
+        
+        tabs[1].add(vivereLabel[0]);
+        tabs[1].add(viveresComboBox);
+        
+        tabs[1].add(vivereLabel[1]);
+        tabs[1].add(campos[5]);
+        
+        tabs[1].add(vivereLabel[2]);
+        tabs[1].add(campos[6]);
+        
+        tabs[1].add(vivereLabel[3]);
+        tabs[1].add(campos[7]);
+        
+        tabs[1].add(vivereLabel[4]);
+        tabs[1].add(campos[8]);
+        
+        tabs[1].add(vivereLabel[5]);
         tabs[1].add(campos[9]);
         /*componentes en comun */
-        //etiquetasC[0].setBounds(x, y, WIDTH, HEIGHT);
+        //cLabel[0].setBounds(x, y, WIDTH, HEIGHT);*/
        
-        this.add(etiquetasC[0]);
+        this.add(cLabel[0]);
         this.add(comboCantidad);
         
         this.add(botonAgrega);
         this.add(textAreaCompra);
         
-        this.add(etiquetasC[1]);
+        this.add(cLabel[1]);
         this.add(campos[10]);
         this.add(botonTicket);
         
@@ -174,43 +200,47 @@ public class InterfazGrafica extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {    
-         Object command = e.getSource();
+        Object selectedElement = e.getSource();
         String cadena;
         float subtotal = 0.0f;
-        if(command.equals(comboElectro)){
-            prodSelec = (Producto)comboElectro.getSelectedItem();
-            campos[0].setText(String.valueOf(prodSelec.getId()));
-            campos[1].setText(prodSelec.getMarca());
-            campos[2].setText(prodSelec.getDescripcion());
-            campos[3].setText(String.valueOf(prodSelec.getPrecio()));
-            Electrodomestico pE = (Electrodomestico)prodSelec;
+        
+        if(selectedElement.equals(electronicComboBox)){
+            producto = (Producto)electronicComboBox.getSelectedItem();
+            campos[0].setText(String.valueOf(producto.getId()));
+            campos[1].setText(producto.getMarca());
+            campos[2].setText(producto.getDescripcion());
+            campos[3].setText(String.valueOf(producto.getPrecio()));
+            Electrodomestico pE = (Electrodomestico)producto;
             campos[4].setText(String.valueOf(pE.getGarantia()));
         }
-        if(command.equals(comboViveres)){
-            prodSelec = (Producto)comboViveres.getSelectedItem();
-            campos[5].setText(String.valueOf(prodSelec.getId()));
-            campos[6].setText(prodSelec.getMarca());
-            campos[7].setText(prodSelec.getDescripcion());
-            campos[8].setText(String.valueOf(prodSelec.getPrecio()));
-            Vivere pV = (Vivere)prodSelec;
+        
+        if(selectedElement.equals(viveresComboBox)){
+            producto = (Producto)viveresComboBox.getSelectedItem();
+            campos[5].setText(String.valueOf(producto.getId()));
+            campos[6].setText(producto.getMarca());
+            campos[7].setText(producto.getDescripcion());
+            campos[8].setText(String.valueOf(producto.getPrecio()));
+            Vivere pV = (Vivere)producto;
             campos[9].setText(String.valueOf(pV.getCaducidad()));
         }
-        if(command.equals(botonAgrega)){
+        
+        if(selectedElement.equals(botonAgrega)){
             String cant = comboCantidad.getSelectedItem().toString();
-            subtotal = Integer.parseInt(cant) * prodSelec.getPrecio();
+            subtotal = Integer.parseInt(cant) * producto.getPrecio();
             montoTotal += subtotal;
             campos[10].setText(String.valueOf(montoTotal));
-            cadena  = textAreaCompra.getText() + "\n" + cant + "\t" + prodSelec.getDescripcion() + "\t" + prodSelec.getPrecio() + "\t" + subtotal;
+            cadena  = textAreaCompra.getText() + "\n" + cant + "\t" + producto.getDescripcion() + "\t" + producto.getPrecio() + "\t" + subtotal;
             textAreaCompra.setText(cadena);
         }
-        if(command.equals(botonTicket)){
+        
+        if(selectedElement.equals(botonTicket)){
             cadena = "cantidad \t producto \t precio \t subtotal \n";
             cadena += textAreaCompra.getText() +  "\n\n";
             cadena += "TOTAL = " + montoTotal;
             
             JOptionPane.showMessageDialog(rootPane, cadena);
         }
-        //
+        
     }
     
 }
