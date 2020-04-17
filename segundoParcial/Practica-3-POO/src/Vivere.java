@@ -1,9 +1,3 @@
-package practica.pkg3;
-
-/**
- *
- * @author erick
- */
 public class Vivere extends Producto{
     private String caducidad; //dd:MM:aaaa
 

@@ -1,9 +1,3 @@
-package practica.pkg3;
-
-/**
- *
- * @author erick
- */
 public abstract class Producto {
     /* Atributos */
     protected int id;

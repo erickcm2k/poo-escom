@@ -1,0 +1,14 @@
+cantidad 	 producto 	 precio 	 subtotal 
+
+0	Paletas de dulce	130.5	0.0
+1	Frijoles Refritos	23.5	23.5
+1	Chiles rojos	30.5	30.5
+1	Leche deslactosada 1lt	17.5	17.5
+1	Leche deslactosada 1lt	13.5	13.5
+1	Televisión LED, 32 pulg	7600.0	7600.0
+1	Lavadora con 8 funciones	5400.0	5400.0
+1	Barra de Sonido	3500.5	3500.5
+1	Galaxy S10+	29999.99	29999.99
+1	iPad Pro 128GB	20000.0	20000.0
+
+TOTAL = 66585.49

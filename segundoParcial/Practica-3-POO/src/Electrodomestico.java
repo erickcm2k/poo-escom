@@ -1,9 +1,3 @@
-package practica.pkg3;
-
-/**
- *
- * @author erick
- */
 public class Electrodomestico extends Producto{
     private int garantia;
     
@@ -21,5 +15,6 @@ public class Electrodomestico extends Producto{
         return garantia;
     }
      
- 
+     
+    
 }
