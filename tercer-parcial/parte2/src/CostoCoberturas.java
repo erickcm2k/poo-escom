@@ -15,5 +15,4 @@ public interface CostoCoberturas {
     public final double defensaLegal = 700;
     public final double parabrisasYLunas = 1200;
     public final double autoRepuesto = 500;
-    public final boolean sustitucionVehiculo = false;
 }

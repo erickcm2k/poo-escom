@@ -76,6 +76,11 @@ public class Motocicleta extends Transporte {
     public ArrayList<PolizaSeguro> getPolizas() {
         return polizas;
     }
+    
+    public Asegurado getTitular() {
+        return asegurado;
+    }
+        
 
     /*
     
@@ -128,13 +133,10 @@ public class Motocicleta extends Transporte {
     }
 
     public void setTitular(Asegurado titular) {
-        this.titular = titular;
+        this.asegurado = titular;
     }
     
-        public Asegurado getTitular() {
-        return titular;
-    }
-            
+    
     /*
     
     

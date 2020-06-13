@@ -21,7 +21,7 @@ public abstract class Transporte {
     protected double valorFactura;
     protected String color;
     protected ArrayList<PolizaSeguro> polizas = new ArrayList();
-    protected Asegurado titular;
+    protected Asegurado asegurado;
     
     public abstract void corregirDatos();
 }
