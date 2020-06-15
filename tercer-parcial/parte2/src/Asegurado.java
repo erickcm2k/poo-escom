@@ -21,7 +21,7 @@ public class Asegurado {
     private String domicilio;
     private ArrayList<String> telefonos  = new ArrayList();
     private ArrayList<Transporte> transportes = new ArrayList();
-    private char[] RFC = new char[13];
+    private char[] RFC;
     private LocalDate emisionLicencia;
 
     /*
@@ -30,12 +30,14 @@ public class Asegurado {
     
     */
     
-    public Asegurado(String nombre, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento, String domicilio, LocalDate emisionLicencia) {
+    public Asegurado(String nombre, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento, String domicilio, ArrayList<String> telefonos, ArrayList<Transporte> transportes, LocalDate emisionLicencia) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.fechaNacimiento = fechaNacimiento;
         this.domicilio = domicilio;
+        this.telefonos = telefonos;
+        this.transportes = transportes;
         this.emisionLicencia = emisionLicencia;
     }
     

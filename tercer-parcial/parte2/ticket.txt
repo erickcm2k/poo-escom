@@ -1,0 +1,10 @@
+CONCEPTO 			 COSTO
+
+Costo Base 			 $9000.0
+Por edad 			 900.0
+Pago con tarjeta crédito 	 +2% 
+COBERTURAS ADICIONALES 
+Por daños materiales 		 $1,500
+Por robo total 			 $2,000
+Por asistencia 			 $700
+Monto total 			 $14382.0

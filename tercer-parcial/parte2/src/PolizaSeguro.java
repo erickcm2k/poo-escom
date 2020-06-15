@@ -1,10 +1,11 @@
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Scanner;
 
 /*
@@ -35,8 +36,81 @@ public class PolizaSeguro extends Cobertura implements PrimaSeguro, Serializable
     }
     
     
-    public /*File*/ String generaPoliza() {
-        return "";
+    public File generaPoliza() {
+        
+        String cadena = obtenerDatosPoliza();
+       
+            try {
+                    File polizaSeguro = new File("ticket.txt");
+                    if(polizaSeguro.createNewFile()) {
+                        System.out.println("Archivo creado");
+                    } else {
+                        System.out.println("Archivo no creado, ya existe.");
+                    }                
+                    try {
+                        FileWriter myWriter;
+                        myWriter = new FileWriter("ticket.txt");
+                        myWriter.write(cadena);
+                        myWriter.close();
+                        System.out.println("Escritura exitosa.");
+                        return polizaSeguro;
+                    } catch(IOException x) {
+                        System.out.println("Error al escribir en el archivo.");
+                      }
+                } catch (IOException x) {
+                    System.out.println("An error ocurred.");
+                }
+            
+            return null;
+        }
+
+    public String obtenerDatosPoliza() {
+        String cadena = "";
+        cadena += "CONCEPTO \t\t\t COSTO\n\n";
+        cadena += "Costo Base \t\t\t $" + costoBaseTransporte() + "\n";
+        
+        /* Datos de descuentos */
+            
+            if(obtenerEdadAsegurado() < 25) {
+                cadena += "Por edad \t\t\t " + costoBaseTransporte() * 0.1 + "\n"; 
+            }
+                
+            if(obtenerAniosConLicencia() < 2) {
+                cadena += "Por antiguedad licencia \t\t\t $1,000 \n"; 
+            }
+            
+            if(tipoPago.toLowerCase().equals("credito")) {
+                cadena += "Pago con tarjeta crédito \t +2% \n"; 
+            }
+            
+            if(transporte.tipoUso.equals("Comercial")) {
+                cadena += "Por uso comercial \t\t\t $2,000 \n"; 
+            }
+            
+        /* Coberturas adicionales */
+        if(this.daniosMat || this.robo || this.asistencia || this. defensa || this.sustitucion) {
+            cadena += "COBERTURAS ADICIONALES \n";
+            if(this.daniosMat) {
+                cadena += "Por daños materiales \t\t $1,500\n";
+            }
+            if(this.robo) {
+                cadena += "Por robo total \t\t\t $2,000\n";                
+            }   
+            if(this.asistencia) {
+                cadena += "Por asistencia \t\t\t $700\n";                
+            }
+            if(this.defensa) {
+                cadena += "Por defensa legal \t\t\t $700\n";                
+            }
+            if(this.sustitucion) {
+                cadena += "Por auto de repuesto \t\t\t $500\n";                
+            }
+        }
+        
+        cadena += "Monto total \t\t\t $" + calcularMontoPrima();
+
+        
+        return cadena;
     }
     
     /*
@@ -134,8 +208,9 @@ public class PolizaSeguro extends Cobertura implements PrimaSeguro, Serializable
             montoPrima += 1000;
         } 
         // 3.- Si la póliza se paga con tarjeta de crédito, se cobra un 2% de comisión en el valor total de la prima.
-        if(this.tipoPago.equals("Credito")) {
-            montoPrima += 1000000000;
+        double comision = 1.0;
+        if(tipoPago.toLowerCase().equals("credito")) {
+            comision = 0.02;
         }
         
         // 4.- Sí el vehículo es de uso comercial, aumenta $2,0000.00.
@@ -144,14 +219,16 @@ public class PolizaSeguro extends Cobertura implements PrimaSeguro, Serializable
         }
         
         montoPrima += calculaCostoCoberturas();
-
+        montoPrima += montoPrima * comision;
+        
         return montoPrima;
     }
     
     // Función auxiliar para calcularMontoPrima
     public double costoBaseTransporte() {
         double costoBase = 0;
-        int modeloTransporte = Integer.parseInt(transporte.modelo);  
+        String modelo = transporte.modelo;
+        int modeloTransporte = Integer.parseInt(modelo);  
             
         if(transporte instanceof Motocicleta) {
             
@@ -214,9 +291,15 @@ public class PolizaSeguro extends Cobertura implements PrimaSeguro, Serializable
     @Override
     public double calcularDeducible(String tipoSiniestro)
     {
-        return 1;
+        // Asumiendo un deducible por el 5% del valor del vehículo.
+        return transporte.valorFactura * 0.05;
     }
 
+    @Override
+    public boolean aplicarDescuento(double x) 
+    {
+        return true;
+    }
     
     /*
     
@@ -224,11 +307,6 @@ public class PolizaSeguro extends Cobertura implements PrimaSeguro, Serializable
     
     */
         
-    @Override
-    public boolean aplicarDescuento(double x) 
-    {
-        return true;
-    }
 
     public int getNumero() {
         return numero;
